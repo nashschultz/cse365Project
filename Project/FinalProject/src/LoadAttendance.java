@@ -1,20 +1,20 @@
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
-public class LoadRoster extends World {
+public class LoadAttendance extends World {
 	
-	public void loadRoster(Source source) throws IOException {
-		source.clearRoster();
+	public void loadAttendance(Source source, String date) throws IOException {
+		
+		//monthBox.addActionListener(this);
+		//dayBox.addActionListener(this);
+		
 		JFileChooser fileChooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 		        "CSV", "csv");
@@ -29,12 +29,13 @@ public class LoadRoster extends World {
 	       while ((row = csvReader.readLine()) != null) {
 	           String[] data = row.split(",");
 	           
-	           Person person = new Person(data[0], data[1], data[2], data[3], data[4], data[5]);
-	           source.updateRoster(person);
+	           Attendance a = new Attendance(data[0], Integer.parseInt(data[1]));
+	           source.updateAttendance(a, date);
 	       }
-	       source.rosterCompleted();
 	       csvReader.close();
 	    }
 	}
+	
+
 
 }
